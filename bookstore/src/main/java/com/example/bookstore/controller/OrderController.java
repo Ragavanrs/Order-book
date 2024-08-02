@@ -1,0 +1,23 @@
+package com.example.bookstore.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.example.bookstore.entity.Order;
+import com.example.bookstore.service.OrderService;
+import java.util.List;
+
+@RestController
+@RequestMapping("/orders")
+public class OrderController {
+    @Autowired
+    private OrderService orderService;
+
+    @PostMapping
+    public Order placeOrder(@RequestParam Long userId, @RequestBody List<Long> bookIds) {
+        try {
+            return orderService.placeOrder(userId, bookIds);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+}
