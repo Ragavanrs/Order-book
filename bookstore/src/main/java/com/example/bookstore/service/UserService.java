@@ -12,7 +12,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public User registerUser(User user) {
-    	System.out.println(user.toString());
         return userRepository.save(user);
     }
 

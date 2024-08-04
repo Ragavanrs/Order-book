@@ -21,7 +21,7 @@ public class OrderService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Order placeOrder(Long userId, List<Long> bookIds) throws Exception {
+    public Order placeOrder(Long userId, List<Long> bookIds,double totalCost) throws Exception {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception("User not found"));
         
@@ -34,7 +34,7 @@ public class OrderService {
         order.setUser(user);
         order.setBooks(books);
         
-        double totalCost = books.stream().mapToDouble(Book::getPrice).sum();
+        //double totalCost = totalCost;
         order.setTotalCost(totalCost);
         
         return orderRepository.save(order);
