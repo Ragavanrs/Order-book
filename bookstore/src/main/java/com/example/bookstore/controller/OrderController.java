@@ -13,11 +13,19 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public Order placeOrder(@RequestParam Long userId, @RequestBody List<Long> bookIds ,@RequestParam double totalCost) {
+    public Order placeOrder(
+    	    @RequestParam("userId") Long userId,
+    	    @RequestBody List<Long> bookIds,
+    	    @RequestParam("totalCost") double totalCost) {
         try {
             return orderService.placeOrder(userId, bookIds,totalCost);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+    
+    @GetMapping("/user/{userId}")
+    public List<Order> getOrdersByUserId(@PathVariable("userId") Long userId) {
+        return orderService.getOrdersByUserId(userId);
     }
 }

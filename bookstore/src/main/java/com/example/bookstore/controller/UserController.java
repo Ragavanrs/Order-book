@@ -28,7 +28,19 @@ public class UserController {
     public ResponseEntity<?> getByUserName(@PathVariable("username") String username) {
         try {
         	System.out.println("username"+username);
-            User user = userService.getByUserId(username);
+            User user = userService.getByUserName(username);
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            System.err.println("Error fetching user: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body("An error occurred while fetching the user.");
+        }
+    }
+    
+    @PostMapping("/id/{id}")
+    public ResponseEntity<?> getByUserId(@PathVariable("id") Long id) {
+        try {
+            User user = userService.getByUserId(id);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             System.err.println("Error fetching user: " + e.getMessage());

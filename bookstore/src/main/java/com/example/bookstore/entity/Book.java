@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Data
 @Table(name="books")
@@ -22,6 +24,7 @@ public class Book {
     
     private Long price;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "books")
     private List<Order> orders;
 
